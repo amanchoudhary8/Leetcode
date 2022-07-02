@@ -11,14 +11,11 @@ public:
         dfsvis[node]=1;
         bool cur=1;
         for(int &i:graph[node]){
-            if((!vis[i])){
-                bool tmp=dfs(i,vis,dfsvis,ans,graph);
-                cur=cur && tmp;
-            }
+            if((!vis[i]))
+                cur=cur && dfs(i,vis,dfsvis,ans,graph);
             else if(dfsvis[i]) return false;
-            else{
-              if(!ans[i])  cur=0;  
-            }
+            else if(!ans[i])  cur=0;  
+            
         }
         
           dfsvis[node]=0;
