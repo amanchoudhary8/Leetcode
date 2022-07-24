@@ -3,16 +3,14 @@ public:
     int numberOfArithmeticSlices(vector<int>& nums) {
         int n=nums.size();
         if(n<3) return 0;
-        int ans=0,dif=0,cur=1;
-        for(int i=1;i<n;i++){
+        int ans=0,dif=nums[1]-nums[0],cur=0;
+        for(int i=2;i<n;i++){
             if(dif==nums[i]-nums[i-1]){
                 cur++;
-                if(cur>=3) {
-                    ans+=(cur-2);
-                }
+                ans+=cur;
             }
             else{
-                cur=2;
+                cur=0;
                 dif=nums[i]-nums[i-1];
             }
         }
