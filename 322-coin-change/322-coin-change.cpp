@@ -1,21 +1,20 @@
 class Solution {
 public:
-    int h(vector<int>& coins, int target,vector<int> &dp){
-        if(target==0) return 0;
-        if(dp[target]!=-1) return dp[target];
-        int ans=INT_MAX;
-        int n=coins.size();
-        for(int i=0;i<n;i++){
-            if(coins[i]<=target)
-                ans=min(ans,h(coins,target-coins[i],dp));
-        }
-        if(ans==INT_MAX) return dp[target]=INT_MAX;
-        return dp[target]=ans+1;
-    }
     int coinChange(vector<int>& coins, int amount) {
         vector<int> dp(amount+1,-1);
-        int ans= h(coins,amount,dp);
-        if(ans==INT_MAX) return -1;
-        return ans;
+        dp[0]=0;
+        int n=coins.size();
+        for(int i=1;i<=amount;i++){      
+            int tmp=INT_MAX;
+            for(int j=0;j<n;j++){
+                if(coins[j]<=i){
+                    tmp=min(tmp,dp[i-coins[j]]);
+                }
+            }
+            if(tmp==INT_MAX) dp[i]=INT_MAX;
+            else dp[i]=tmp+1;
+        }
+        if(dp[amount]==INT_MAX) return -1;
+        return dp[amount];
     }
 };
