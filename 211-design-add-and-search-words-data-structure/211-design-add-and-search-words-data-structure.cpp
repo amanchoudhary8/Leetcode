@@ -26,20 +26,18 @@ public:
         int n=word.length();
         for(;i<n;i++){
             if(word[i]=='.'){
-                bool flag=0;
                 for(int x=0;x<26;x++){
-                    if(tmp->link[x] && !flag){
-                        flag|=search(word,i+1,tmp->link[x]);
-                    }
+                    if(tmp->link[x])
+                        if(search(word,i+1,tmp->link[x])) return true;
+                    
                 }
-                return flag;
+                return 0;
             }
             else {
                 if(!tmp->link[word[i]-'a']) return 0;
                 tmp=tmp->link[word[i]-'a'];
             }
         }
-        if(word==".ad") cout<<tmp->cnt;
         return tmp->cnt;
     }
 
