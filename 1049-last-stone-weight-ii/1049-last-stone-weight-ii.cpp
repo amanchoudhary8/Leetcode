@@ -4,6 +4,29 @@ public:
         int n=stones.size();
         
         int sum=0;
+        sum=accumulate(stones.begin(),stones.end(),0);
+        bool dp[(sum/2)+1];
+        memset(dp,0,sizeof dp);
+        dp[0]=1;
+    
+        for(int i=1;i<=n;i++)
+            for(int j=(sum/2);j>=0;j--)
+                if(stones[i-1]<=j)
+                    dp[j]=(dp[j-stones[i-1]] || dp[j]);
+                
+            
+        
+        
+        for(int j=(sum/2);j>=0;j--){
+            if(dp[j] ) return sum-2*j;
+        }
+        return sum;//only one element in array
+        
+        
+        
+       /* int n=stones.size();
+        
+        int sum=0;
         sum=accumulate(stones.begin(),stones.end(),sum);
         bool dp[n+1][(sum/2)+1];
         memset(dp,0,sizeof dp);
@@ -27,5 +50,7 @@ public:
             if(dp[n][j] ) return sum-2*j;
         }
         return sum;
+        
+        */
     }
 };
