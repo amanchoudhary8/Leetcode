@@ -19,15 +19,11 @@ public:
         
         dp[0]=1;
         
-        for(int i=1;i<=n;i++){
-            for(int j=1;j<=amount;j++){
-                int nott=dp[j];
-                int take=0;
-                if(j>=coins[i-1]) take=dp[j-coins[i-1]];
-
-                dp[j]=take+nott;
-            }
-        }
+        for(int i=1;i<=n;i++)
+            for(int j=1;j<=amount;j++)
+                if(j>=coins[i-1]) dp[j]+=dp[j-coins[i-1]];
+            
+        
         return dp[amount];
     }
 };
