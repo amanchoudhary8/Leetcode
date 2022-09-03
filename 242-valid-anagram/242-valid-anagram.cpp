@@ -5,7 +5,7 @@ public:
         for(auto x:s) v[x-97]++;
         for(auto x:t) v[x-97]--;
         
-        for(auto x:v) {if(x!=0) return 0;}
+        for(auto x:v) if(x!=0) return 0;
         return 1;
     }
 };
