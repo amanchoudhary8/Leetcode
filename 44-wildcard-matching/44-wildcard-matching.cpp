@@ -21,20 +21,20 @@ public:
     
     bool isMatch(string s, string p) {
         int m=p.length(),n=s.length();
-        vector<vector<int>> dp(m+1,vector<int>(n+1,0));
-        dp[0][0]=1;
-        for(int j=1;j<=n;j++) dp[0][j]=0;
-        for(int i=1;i<=m;i++)
-            dp[i][0]=dp[i-1][0] & (p[i-1]=='*');
+        vector<int> prev(n+1,0),cur(n+1,0);
+        prev[0]=1;
+        for(int j=1;j<=n;j++) prev[j]=0;
         
         
         for(int i=1;i<=m;i++){
+            cur[0]=prev[0] & (p[i-1]=='*');
             for(int j=1;j<=n;j++){
-                if((p[i-1]==s[j-1]) || (p[i-1]=='?'))  dp[i][j]=dp[i-1][j-1];
-                else if(p[i-1]=='*') dp[i][j]=(dp[i-1][j] || dp[i][j-1]);
-                else dp[i][j]=0;
+                if((p[i-1]==s[j-1]) || (p[i-1]=='?'))  cur[j]=prev[j-1];
+                else if(p[i-1]=='*') cur[j]=(prev[j] || cur[j-1]);
+                else cur[j]=0;
             }
+            prev=cur;
         }        
-        return dp[m][n];
+        return prev[n];
     }
 };
