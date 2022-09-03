@@ -7,7 +7,7 @@ public:
         }
         int last=cur%10;
         if(last+k<10) help(n-1,cur*10+last+k,k,ans);
-        if(last-k>=0) help(n-1,cur*10+last-k,k,ans);
+        if(k!=0 && last-k>=0) help(n-1,cur*10+last-k,k,ans);
         return;
             
     }
