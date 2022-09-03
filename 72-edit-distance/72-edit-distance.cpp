@@ -15,26 +15,29 @@ public:
     }
     
     int minDistance(string word1, string word2) {
-        int m=word1.length(),n=word2.length();
-        vector<vector<int>> dp(2,vector<int>(n+1,0));//2 rows only
+        int m=word1.size(),n=word2.size();
+        vector<int> dp(n+1,0);//1 rows only
         
-        for(int j=0;j<=n;j++) dp[0][j]=j;
-        
+        for(int j=0;j<=n;j++) dp[j]=j;
+        int prev;
         for(int i=1;i<=m;i++){
-            dp[i&1][0]=i;
+            prev=dp[0];
+            dp[0]=i;
             for(int j=1;j<=n;j++){
-                 if(word1[i-1]==word2[j-1]) dp[i&1][j]=dp[(i-1)&1][j-1];
+                int cur=dp[j];
+                 if(word1[i-1]==word2[j-1]) dp[j]=prev;
                  else{
-                    int opt1=dp[(i-1)&1][j];
-                    int opt2=dp[(i-1)&1][j-1];
-                    int opt3=dp[i&1][j-1];
+                    int opt1=dp[j];
+                    int opt2=prev;
+                    int opt3=dp[j-1];
                      
-                     dp[i&1][j]=1+min(opt1,min(opt2,opt3));
+                    dp[j]=1+min({opt1,opt2,opt3});
                  }
+                 prev=cur;
             }
         }
         
-        return dp[m&1][n];
+        return dp[n];
         
     }
 };
