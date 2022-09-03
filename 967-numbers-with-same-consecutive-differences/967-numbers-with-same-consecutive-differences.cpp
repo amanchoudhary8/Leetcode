@@ -1,8 +1,8 @@
 class Solution {
 public:
-    void help(int n,int cur,int k,unordered_set<int> &ans){
+    void help(int n,int cur,int k,vector<int> &ans){
         if(n==0){
-            ans.insert(cur);
+            ans.push_back(cur);
             return;
         }
         int last=cur%10;
@@ -13,10 +13,9 @@ public:
     }
     
     vector<int> numsSameConsecDiff(int n, int k) {
-        unordered_set<int> u;
+        vector<int> ans;
         for(int i=1;i<=9;i++)
-            help(n-1,i,k,u);
-        vector<int> ans(u.begin(),u.end());
+            help(n-1,i,k,ans);
         return ans;
         
     }
