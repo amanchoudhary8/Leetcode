@@ -29,10 +29,6 @@
 //     }
 // };
 
-
-
-
-
 class Solution {
 public:
     typedef vector<int> vi;//1D
@@ -58,9 +54,23 @@ public:
     
     int maxProfit(vector<int>& prices) {
         int n=prices.size();
+        vvi dp(n+1,vi(5,0));
         
-        vvi dp(n,vi(4,-1));
-        return f(0,0,prices,dp);
+        for(int i=n-1;i>=0;i--){
+            for(int tr=0;tr<4;tr++){
+                if(!(tr&1)){
+                    int opt1=-prices[i]+dp[i+1][tr+1];
+                    int opt2= 0+ dp[i+1][tr];
+                    dp[i][tr]=max(opt1,opt2);
+                }
+                else{
+                    int opt1=prices[i]+dp[i+1][tr+1];
+                    int opt2= 0+ dp[i+1][tr];
+                    dp[i][tr]=max(opt1,opt2);
+                }
+            }
+        }
+        return dp[0][0];
     }
 };
 
