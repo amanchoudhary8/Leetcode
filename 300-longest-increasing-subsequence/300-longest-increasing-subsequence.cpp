@@ -30,18 +30,41 @@
 
 
 
+// class Solution {
+// public:
+//     int lengthOfLIS(vector<int>& nums) {
+//         int n=nums.size();
+//         vector<int> v(n,1);
+//         for(int i=1;i<n;i++)
+//             for(int j=0;j<i;j++)
+//                 if(nums[j]<nums[i]) v[i]=max(v[i],v[j]+1);
+            
+        
+//         int ans=1;
+//         for(auto &x:v) ans=max(ans,x);
+//         return ans;
+//     }
+// };
+
+
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
+        vector<int> v;
+        int ans=0;
+        v.push_back(nums[0]);ans++;
         int n=nums.size();
-        vector<int> v(n,1);
-        for(int i=1;i<n;i++)
-            for(int j=0;j<i;j++)
-                if(nums[j]<nums[i]) v[i]=max(v[i],v[j]+1);
+        for(int i=1;i<n;i++){
+            if(nums[i]>v.back()){
+                 v.push_back(nums[i]); 
+                 ans++;
+            }
             
-        
-        int ans=1;
-        for(auto &x:v) ans=max(ans,x);
+            else{
+                int ind=lower_bound(v.begin(),v.end(),nums[i])-v.begin();
+                v[ind]=nums[i];
+            }
+        }
         return ans;
     }
 };
