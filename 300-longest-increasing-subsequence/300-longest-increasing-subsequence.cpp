@@ -12,7 +12,18 @@ public:
     
     int lengthOfLIS(vector<int>& nums) {
         int n=nums.size();
-        vector<vector<int>> dp(n,vector<int>(n+1,-1));
-        return lis(0,-1,nums,dp);
+        vector<int> next(n+1,0),cur(n+1,0);
+        
+        for(int ind=n-1;ind>=0;ind--){
+            for(int prev=-1;prev<ind;prev++){
+                int nott=0+next[prev+1];
+                int tk=0;
+                if(prev==-1 || nums[prev]<nums[ind]) tk=1+next[ind+1];
+                cur[prev+1]=max(nott,tk);
+            }
+            next=cur;
+        }
+        
+        return next[-1 + 1];
     }
 };
