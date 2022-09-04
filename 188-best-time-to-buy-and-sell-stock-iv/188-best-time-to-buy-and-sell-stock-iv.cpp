@@ -21,7 +21,19 @@ public:
         }
     }
     
+    int maxProfit2(vector<int>& ps) {
+        int res=0;
+        for (auto i = 1; i < ps.size(); ++i) 
+            res += max(0, ps[i] - ps[i - 1]);
+        return res;
+    }
+    
     int maxProfit(int k, vector<int>& prices) {
+        if (k * 2 >= prices.size()) 
+            return maxProfit2(prices);
+        
+        
+        
         int n=prices.size();
         vvi ahead(2,vi(k+1,0)),cur(2,vi(k+1,0));
         
