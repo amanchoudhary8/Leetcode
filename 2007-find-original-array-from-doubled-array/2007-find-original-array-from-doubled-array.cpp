@@ -18,14 +18,15 @@ public:
         
         for(;i<n;i++){
             int cur=changed[i];
-            if(u.find(cur)!=u.end() && u[cur]<0) ans.push_back(cur);
             if(cur&1  || u.find(cur/2)==u.end() || u[cur/2]==0) u[cur]--;
-            else u[cur/2]++;
+            else{
+                u[cur/2]++;
+                ans.push_back(cur/2);
+            } 
         }
-        for(auto &[a,b]:u){
+        for(auto &[a,b]:u)
             if(b<0) return {};
-            ans.push_back(a);
-        }
+        
         return ans;
     }
 };
