@@ -6,7 +6,7 @@ public:
         int i=0,j=0,tmp=0,maxi=0;
         while(j<n){
             if(us.find(s[j])!=us.end())  tmp++;
-            if((j-i+1) > k){
+            if(j>=k){
                 if(us.find(s[i])!=us.end()) tmp--;
                 i++;
             }
